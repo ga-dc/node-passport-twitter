@@ -5,9 +5,9 @@ var env = require("./env");
 
 passport.use(new Strategy(
   {
-    consumerKey: env.consumerKey,
-    consumerSecret: env.consumerSecret,
-    callbackURL: env.callbackUrl
+    consumerKey: process.env.consumerKey,
+    consumerSecret: process.env.consumerSecret,
+    callbackURL: process.env.callbackUrl
   },
   function(token, tokenSecret, profile, cb){
     return cb(null, profile);
@@ -47,6 +47,6 @@ app.get("/auth/twitter/show", function(req, res){
   res.json(req.session);
 });
 
-app.listen(3000, function(){
+app.listen(process.env.PORT || 3000, function(){
   console.log("Whee, I'm working!");
 });
