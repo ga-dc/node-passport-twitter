@@ -4,6 +4,8 @@
 
 This is an extremely fancy app that successfully uses it.
 
+Taken very much from https://github.com/passport/express-4.x-twitter-example/.
+
 1. Authentcate a Twitter app
   - https://apps.twitter.com
   - Use `http://127.0.0.1:3000/auth/twitter/callback` as the callback URL
