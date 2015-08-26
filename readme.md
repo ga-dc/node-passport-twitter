@@ -4,4 +4,8 @@
 
 This is an extremely fancy app that successfully uses it.
 
-Rename `env_sample.js` to `env.js` and fill in the blanks!
+1. Authentcate a Twitter app
+  - https://apps.twitter.com
+  - Use `http://127.0.0.1:3000/auth/twitter/callback` as the callback URL
+2. Rename `env_sample.js` to `env.js` and fill in the blanks
+  - Note that the callback URL there is `localhost` instead of `127.0.0.1`

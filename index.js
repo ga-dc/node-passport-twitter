@@ -47,6 +47,6 @@ app.get("/auth/twitter/show", function(req, res){
   res.json(req.session);
 });
 
-app.listen(3001, function(){
+app.listen(3000, function(){
   console.log("Whee, I'm working!");
 });
