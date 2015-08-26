@@ -1,7 +1,7 @@
 var express = require("express");
 var passport = require("passport");
 var Strategy = require("passport-twitter").Strategy;
-var env = require("./env");
+var env = process.env.consumerKey ? null : require("./env");
 
 passport.use(new Strategy(
   {
