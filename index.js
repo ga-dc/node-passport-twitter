@@ -1,6 +1,6 @@
-var express = require('express');
-var passport = require('passport');
-var Strategy = require('passport-twitter').Strategy;
+var express = require("express");
+var passport = require("passport");
+var Strategy = require("passport-twitter").Strategy;
 var env = require("./env");
 
 passport.use(new Strategy(
@@ -23,37 +23,30 @@ passport.deserializeUser(function(obj, cb) {
 });
 
 var app = express();
-app.use(require('cookie-parser')());
-app.use(require('body-parser').urlencoded({ extended: true }));
-app.use(require('express-session')({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
+app.use(require("cookie-parser")());
+app.use(require("body-parser").urlencoded({ extended: true }));
+app.use(require("express-session")({ secret: "keyboard cat", resave: true, saveUninitialized: true }));
 
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.get('/',
+app.get("/", function(req, res) {
+  res.send("<a href='/auth/twitter/login'>Login</a>");
+});
+
+app.get("/auth/twitter/login", passport.authenticate("twitter"));
+
+app.get("/auth/twitter/callback",
+  passport.authenticate("twitter", { failureRedirect: "/login" }),
   function(req, res) {
-    res.json(req.session);
-  });
-
-app.get('/login',
-  function(req, res){
-    res.send("Log in");
-  });
-
-app.get('/login/twitter', passport.authenticate('twitter'));
-
-app.get('/auth/twitter/callback',
-  passport.authenticate('twitter', { failureRedirect: '/login' }),
-  function(req, res) {
-    res.redirect('/');
+    res.redirect("/auth/twitter/show");
   }
 );
 
-app.get('/profile',
-  require('connect-ensure-login').ensureLoggedIn(),
-  function(req, res){
-    res.render('profile', { user: req.user });
-  }
-);
+app.get("/auth/twitter/show", function(req, res){
+  res.json(req.session);
+});
 
-app.listen(3001);
+app.listen(3001, function(){
+  console.log("Whee, I'm working!");
+});
